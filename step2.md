@@ -99,11 +99,41 @@ ec2_ami_id = "ami-0694d931cee176e7d"
 
 In our project, the cidr_public_subnet variable specifies the CIDR blocks for our public subnets. These subnets will be used to host resources that need to interact with the internet, such as the Jenkins server.
 
+```hcl
 cidr_public_subnet = ["11.0.1.0/24", "11.0.2.0/24"]
+```
 
 
 **Private Subnet:** A private subnet is a subnet that is associated with a route table that does not have a route to an internet gateway. Instances in a private subnet cannot communicate directly with the internet. Instead, they can route their traffic through a NAT gateway or a NAT instance for internet access. Private subnets are typically used for resources that do not need to be directly accessible from the internet, such as databases or backend servers.
 
 In our project, the cidr_private_subnet variable specifies the CIDR blocks for our private subnets. These subnets will be used to host resources that should not be directly exposed to the internet.
 
+```hcl
 cidr_private_subnet = ["11.0.3.0/24", "11.0.4.0/24"]
+```
+
+```hcl
+# Setup public subnet
+resource "aws_subnet" "dev_proj_1_public_subnets" {
+  count             = length(var.cidr_public_subnet)
+  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  cidr_block        = element(var.cidr_public_subnet, count.index)
+  availability_zone = element(var.eu_availability_zone, count.index)
+
+  tags = {
+    Name = "dev-proj-public-subnet-${count.index + 1}"
+  }
+}
+
+# Setup private subnet
+resource "aws_subnet" "dev_proj_1_private_subnets" {
+  count             = length(var.cidr_private_subnet)
+  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  cidr_block        = element(var.cidr_private_subnet, count.index)
+  availability_zone = element(var.eu_availability_zone, count.index)
+
+  tags = {
+    Name = "dev-proj-private-subnet-${count.index + 1}"
+  }
+}
+```
