@@ -116,6 +116,8 @@ resource "aws_vpc" "dev_proj_1_vpc_eu_central_1" {
 }
 
 
+
+
 ### Step 3: Provide Variable Values
 
 Provide values for these variables in a .tfvars file or through the Terraform CLI. 
