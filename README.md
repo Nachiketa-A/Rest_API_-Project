@@ -89,6 +89,7 @@ These variables include:
 
 #### main.tf
 
+```hcl
 variable "vpc_cidr" {}
 variable "vpc_name" {}
 variable "cidr_public_subnet" {}
@@ -114,7 +115,7 @@ resource "aws_vpc" "dev_proj_1_vpc_eu_central_1" {
     Name = var.vpc_name
   }
 }
-
+```
 
 
 
