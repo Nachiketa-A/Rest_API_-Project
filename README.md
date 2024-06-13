@@ -42,8 +42,40 @@
 - Once the cloning process is complete, Visual Studio may automatically open the cloned repository.
 - If not, you can open it manually by going to **File** > **Open** > **Project/Solution** and navigating to the cloned repository's folder.
 
-After completion of above process now lets move to main.tf file
+# Terraform Networking Module Setup for Jenkins
 
+This guide provides a step-by-step explanation for setting up the Virtual Private Cloud (VPC) for Jenkins using the `networking` module in the `main.tf` file. 
+
+To focus on setting up the VPC for Jenkins, comment out all other modules in the `main.tf` file except the networking module. 
+
+The `main.tf` file should look like this:
+
+
+```hcl
+# Comment out other modules
+# module "example_module" {
+#   source = "./example_module"
+#   ...
+# }
+
+# Networking module for VPC setup
+module "networking" {
+  source               = "./networking"
+  vpc_cidr             = var.vpc_cidr
+  vpc_name             = var.vpc_name
+  cidr_public_subnet   = var.cidr_public_subnet
+  eu_availability_zone = var.eu_availability_zone
+  cidr_private_subnet  = var.cidr_private_subnet
+}
+
+module "networking" {
+  source               = "./networking"
+  vpc_cidr             = var.vpc_cidr
+  vpc_name             = var.vpc_name
+  cidr_public_subnet   = var.cidr_public_subnet
+  eu_availability_zone = var.eu_availability_zone
+  cidr_private_subnet  = var.cidr_private_subnet
+} 
 
 
 
