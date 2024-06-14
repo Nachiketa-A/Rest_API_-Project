@@ -190,4 +190,12 @@ provider "aws" {
    - Download the `.csv` file containing the Access Key ID and Secret Access Key. Keep this file secure.
 
 
+# Implementing Network module to set VPC
 
+### Step 1:
+
+```hcl
+terraform init
+```
+
+This command is really essential to initialize modules and also to download AWS required dependancies so that terraform can provision the infrastructure .
