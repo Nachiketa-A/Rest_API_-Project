@@ -137,3 +137,57 @@ resource "aws_subnet" "dev_proj_1_private_subnets" {
   }
 }
 ```
+
+Now we are ready to set VPC for Jenkins
+
+Before that we will take a look at provider.tf file
+
+```hcl
+provider "aws" {
+  region                   = "ap-south-1"
+  shared_credentials_files = ["/Users/rahulwagh/.aws/credentials"]
+}
+```
+
+# Setting Up AWS Credentials and Terraform Provider for Jenkins
+
+## Step 1: Create AWS Credentials
+
+1. **Sign in to AWS Management Console:**
+   - Go to [AWS Management Console](https://aws.amazon.com/console/).
+   - Sign in with your AWS account credentials.
+
+2. **Navigate to Security Credentials:**
+
+   - In the AWS Management Console, search for Security Credentials and open it.
+
+![image](https://github.com/Nachiketa-A/Rest_API_-Project/assets/157089767/1ec10533-ba31-470c-947e-152432cc2037)
+
+3. **Create a New IAM User:**
+
+   - In the IAM Dashboard, click on `Users` in the left sidebar.
+
+   - Click on `Add user`.
+
+   - Enter a username (e.g., `terraform-user`).
+
+   - Select `Programmatic access` to enable access via the command line and APIs.
+
+4. **Set Permissions:**
+
+   - Click on `Next: Permissions`.
+
+   - Choose `Attach existing policies directly`.
+
+   - Search for `AdministratorAccess` and select it.
+
+   - Click `Next: Tags`, then `Next: Review`.
+
+5. **Create User and Download Credentials:**
+
+   - Click on `Create user`.
+
+   - Download the `.csv` file containing the Access Key ID and Secret Access Key. Keep this file secure.
+
+
+
