@@ -145,7 +145,7 @@ Before that we will take a look at provider.tf file
 ```hcl
 provider "aws" {
   region                   = "ap-south-1"
-  shared_credentials_files = ["/Users/rahulwagh/.aws/credentials"]
+  shared_credentials_files = ["C:\\user\nachiketaambarkhane\\credentials"]
 }
 ```
 
