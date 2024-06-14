@@ -53,7 +53,7 @@ variable "eu_availability_zone" {}
 variable "cidr_private_subnet" {}
 
 output "dev_proj_1_vpc_id" {
-  value = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  value = aws_vpc.dev_proj_1_vpc_ap_south_1.id
 }
 
 output "dev_proj_1_public_subnets" {
@@ -65,7 +65,7 @@ output "public_subnet_cidr_block" {
 }
 
 # Setup VPC
-resource "aws_vpc" "dev_proj_1_vpc_eu_central_1" {
+resource "aws_vpc" "dev_proj_1_vpc_ap_south_1" {
   cidr_block = var.vpc_cidr
   tags = {
     Name = var.vpc_name
@@ -83,10 +83,10 @@ Provide values for these variables in a .tfvars file or through the Terraform CL
 bucket_name = "dev-proj-1-jenkins-remote-state-bucket-123456"
 
 vpc_cidr             = "11.0.0.0/16"
-vpc_name             = "dev-proj-jenkins-eu-west-vpc-1"
+vpc_name             = "dev-proj-jenkins-ap-south-vpc-1"
 cidr_public_subnet   = ["11.0.1.0/24", "11.0.2.0/24"]
 cidr_private_subnet  = ["11.0.3.0/24", "11.0.4.0/24"]
-eu_availability_zone = ["eu-west-1a", "eu-west-1b"]
+eu_availability_zone = ["ap-south-1a", "ap-south-1b"]
 
 public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDwmgMHFJE7J4qepIzAZL3/yC6J0zsEAb/oHYL+WBBDNUjSH4TeHUnHVNe9b/pyPcub+O/HNvlGrzSxUp0xT0b3O7kkTtgBKiG8NaBbonj+c7byfOGER80DYxc5adlBltuIDd8StFe7OMzbYyUSr1mdxDTIWm/OoE39G/fu3hTqUGkykv072GAy8nMFejITRw9pf+53B9ziE5rsdOUH4uqBiQa/Ng/qKo7h9MtJGcloRATYiObXwAgrHtt3sDrtvkq2ZceT906/BJm1Twlm+BHlQecHV18Ak3bzm/6HzlsA/q+yORsoB+VxSUxvVy0nXTc1X8vJAD4KSYVL5DTrpisdnQAIcuqAbea+LMku2o4sdnrrIlUi8/8BXeVbI4TNNGd0+sWpCVcDEhb4gyA/XXTvloQyjTYrL4+am/9XEY6NGdsrPK74sjvtpUZPUrmzTJ/mJWG5ncGY88GAj+YZAsY5pnAqh2CkR2TUpglugldnWyrppbe2QyC9iQkgUGSkBTs= rahulwagh@Rahuls-MacBook-Pro.local"
 ec2_ami_id = "ami-0694d931cee176e7d"
@@ -116,7 +116,7 @@ cidr_private_subnet = ["11.0.3.0/24", "11.0.4.0/24"]
 # Setup public subnet
 resource "aws_subnet" "dev_proj_1_public_subnets" {
   count             = length(var.cidr_public_subnet)
-  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  vpc_id            = aws_vpc.dev_proj_1_vpc_ap_south_1.id
   cidr_block        = element(var.cidr_public_subnet, count.index)
   availability_zone = element(var.eu_availability_zone, count.index)
 
@@ -128,7 +128,7 @@ resource "aws_subnet" "dev_proj_1_public_subnets" {
 # Setup private subnet
 resource "aws_subnet" "dev_proj_1_private_subnets" {
   count             = length(var.cidr_private_subnet)
-  vpc_id            = aws_vpc.dev_proj_1_vpc_eu_central_1.id
+  vpc_id            = aws_vpc.dev_proj_1_vpc_ap_south_1.id
   cidr_block        = element(var.cidr_private_subnet, count.index)
   availability_zone = element(var.eu_availability_zone, count.index)
 
